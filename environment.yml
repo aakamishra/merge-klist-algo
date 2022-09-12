@@ -1,0 +1,8 @@
+name: pset0-exercise2
+channels:
+  - defaults
+dependencies:
+  - python
+  - flake8
+  - autopep8
+prefix: /Users/amishra/miniconda3/envs/pset0-exercise2
