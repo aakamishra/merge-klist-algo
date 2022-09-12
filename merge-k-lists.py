@@ -1,7 +1,7 @@
 """
-You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
-
-Merge all the linked-lists into one sorted linked-list and return it.
+You are given an array of k linked-lists lists, each linked-list
+is sorted in ascending order. Merge all the linked-lists into
+one sorted linked-list and return it.
 
 Input: lists = [[1,4,5],[1,3,4],[2,6]]
 Output: [1,1,2,3,4,4,5,6]
@@ -16,20 +16,34 @@ merging them into one sorted list:
 
 """
 
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
 
 class ListNode(object):
     def __init__(self, val=0, next=None):
-         self.val = val
-         self.next = next
+        self.val = val
+        self.next = next
+
 
 class Solution(object):
-    def mergeKLists(self, lists):
+    def iterative_merge_k_lists(self, lists):
         """
         :type lists: List[ListNode]
         :rtype: ListNode
         """
+
+        final_list = []
+        for list in lists:
+            curr = list
+            while curr:
+                final_list.append(curr.val)
+                curr = curr.next
+        n = len(final_list)
+        return_ptr = new_head = ListNode(val=-1)
+        for i in range(n):
+            for j in range(i+1, n):
+                if final_list[i] > final_list[j]:
+                    temp = final_list[i]
+                    final_list[i] = final_list[j]
+                    final_list[j] = temp
+            new_head.next = ListNode(val=final_list[i])
+            new_head = new_head.next
+        return return_ptr.next
