@@ -47,3 +47,30 @@ class Solution(object):
             new_head.next = ListNode(val=final_list[i])
             new_head = new_head.next
         return return_ptr.next
+
+    def recursive_merge_k_lists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+
+        def combine_helper(a, b):
+            if not a and not b:
+                return None
+            elif a and not b:
+                return a
+            elif b and not a:
+                return b
+            elif a and b:
+                if a.val <= b.val:
+                    a.next = combine_helper(a.next, b)
+                    return a
+                if a.val > b.val:
+                    b.next = combine_helper(a, b.next)
+                    return b
+
+        return_ptr = combined_list = ListNode(val=-1)
+        for ls in lists:
+            combine_helper(combined_list, ls)
+       
+        return return_ptr.next
